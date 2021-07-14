@@ -5,6 +5,7 @@ const dbConnection = require("../database/mysql_connect");
 const USER_ATTRIBUTE = require("../user/user_model");
 const router = express.Router();
 const userHandler = require("../user/register_handler");
+const user = require("../user/user_handler");
 // require("../boot/auth");
 require("../user/google_auth");
 
@@ -20,5 +21,6 @@ router.get('/auth/google/callback',
     res.redirect('/');
   });
 
+router.post('/user', user.user)
 
 module.exports = router;
