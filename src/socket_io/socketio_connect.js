@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 function connectSocket(io) {
     const connection = mongoose.connection;
-    console.log("io: ", io);
+    // console.log("io: ", io);
     io.on('connection', (socket) => {
         console.log("user connected");
         
@@ -10,6 +10,7 @@ function connectSocket(io) {
             console.log('user disconnected');
         });
         });
+    
     connection.once("open", () => {
     console.log("MongoDB database connected");
     
@@ -24,8 +25,8 @@ function connectSocket(io) {
             lastName: change.fullDocument.lastName
             };
             console.log("inside changeStream insert");
-            connectSocket(thought);
             io.emit('message', thought.firstName + thought.lastName);
+            
             
             break;
 

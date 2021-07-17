@@ -7,23 +7,23 @@ var GoogleStrategy = require('passport-google-oauth20').Strategy;
 const GOOGLE_CLIENT_ID = '532959646794-qlerld3d5gf56s9aqh0ip5i7rn8lq9da.apps.googleusercontent.com';
 const GOOGLE_CLIENT_SECRET = 'EpFFzY-sU-ZubyNEQLYCtjZR';
 
-passport.serializeUser(function(profile, done) {
-  done(null, profile.id);
-});
+// passport.serializeUser(function(profile, done) {
+//   done(null, profile.id);
+// });
 
-passport.deserializeUser(function(id, done) {
-  User.findById(id, function(err, profile) {
+// passport.deserializeUser(function(id, done) {
+//   User.findById(id, function(err, profile) {
 
-    done(null, profile);
-  });
-});
+//     done(null, profile);
+//   });
+// });
 
   passport.use(new GoogleStrategy({
       clientID: GOOGLE_CLIENT_ID,
       clientSecret: GOOGLE_CLIENT_SECRET,
       callbackURL: "http://localhost:8080/userForm/auth/google/callback"
     },
-    async function(accessToken, refreshToken, profile, cb) {
+    async function(accessToken, refreshToken, profile, done) {
         // var User = dbConnection.model('ModelName', BlogPost);
         // USER_ATTRIBUTE.social_ID.findOrCreate({ social_ID: profile.id }, function (err, user) {
             console.log(profile._json);
@@ -39,7 +39,7 @@ passport.deserializeUser(function(id, done) {
                   console.log(getSocialId);
                   console.log("")
                   connection.end("Account has already existed");
-        
+                  // done(null,'gID');
                   // res.json({
                   //   message: "Account has already existed",
                   // });
@@ -54,15 +54,15 @@ passport.deserializeUser(function(id, done) {
                         ]);
                           connection.end();
                         console.log("Register successfully");
-                        
+                        // done(null,'gID'); 
                 }
-              } catch (error) {
+              } catch (error) { 
                 console.log(error);
                 // res.status(500).json({
                 //   message: error,
                 // });
               }
-          return cb(null, profile);
+          // return cb(null, profile);
         // });
       }
     ));
